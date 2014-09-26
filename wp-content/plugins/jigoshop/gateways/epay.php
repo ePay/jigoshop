@@ -26,9 +26,10 @@ class epay extends jigoshop_payment_gateway {
 		$this->icon = '';
 		$this->has_fields = false;
 		$this->enabled = $options->get_option('jigoshop_epay_enabled');
-		$this->title = 'ePay';
+		$this->title = $options->get_option('jigoshop_epay_title');
 		$this->merchant = $options->get_option('jigoshop_epay_merchant');
 		$this->md5key = $options->get_option('jigoshop_epay_md5key');
+		$this->windowid = $options->get_option('jigoshop_epay_windowid');
 		$this->instantcapture = $options->get_option('jigoshop_epay_instantcapture');
 		$this->group = $options->get_option('jigoshop_epay_group');
 		$this->mailreceipt = $options->get_option('jigoshop_epay_mailreceipt');
@@ -100,6 +101,14 @@ class epay extends jigoshop_payment_gateway {
 			'name' => __('MD5 Key', 'jigoshop'),
 			'desc' => '',
 			'id' => 'jigoshop_epay_md5key',
+			'std' => '',
+			'type' => 'text'
+		);
+		
+		$defaults[] = array(
+			'name' => __('Window ID', 'jigoshop'),
+			'desc' => '',
+			'id' => 'jigoshop_epay_windowid',
 			'std' => '',
 			'type' => 'text'
 		);
@@ -178,6 +187,7 @@ class epay extends jigoshop_payment_gateway {
 			'merchantnumber' => $this->merchant,
 			'windowstate' => 3,
 			'instantcallback' => 1,
+			'windowid' => $this->windowid,
 			'instantcapture' => $this->yes_no_to_int($this->instantcapture),
 			'group' => $this->group,
 			'mailreceipt' => $this->mailreceipt,
