@@ -193,7 +193,7 @@ class epay extends jigoshop_payment_gateway {
 			'mailreceipt' => $this->mailreceipt,
 			'ownreceipt' => $this->yes_no_to_int($this->ownreceipt),
 			'amount' => $order->order_total * 100,
-			'orderid' => $order_id,
+			'orderid' => $order->get_order_number()
 			'currency' => Jigoshop_Base::get_options()->get_option('jigoshop_currency'),
 			'callbackurl' => $this->notify_url,
 			'accepturl' => add_query_arg('key', $order->order_key, add_query_arg('order', $order_id, get_permalink($checkout_redirect))),
@@ -240,7 +240,7 @@ class epay extends jigoshop_payment_gateway {
 		
 		$posted = stripslashes_deep($posted);
 		
-		$order = new jigoshop_order((int)$posted["orderid"]);
+		$order = new jigoshop_order((int)$posted["order"]);
 		if(strlen($this->md5key) > 0)
 		{
 			foreach($posted as $key => $value)
